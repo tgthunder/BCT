@@ -1,0 +1,21 @@
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8;
+
+contract Bank{
+    address public owner;
+    uint256 public balance;
+    constructor(){
+        owner=msg.sender;
+    }
+
+    function deposit() external payable {
+        balance +=msg.value;
+    }
+
+    function withdraw(uint256 amount) external {
+        require(balance >= amount , "not enough balance" );
+        payable(owner).transfer(amount);
+        balance -= amount;
+    }
+}
